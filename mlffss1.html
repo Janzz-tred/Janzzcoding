@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Janzz Store</title>
+
+<style>
+*{box-sizing:border-box;font-family:Segoe UI,sans-serif}
+body{
+ margin:0;
+ min-height:100vh;
+ background:
+ linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+ url("https://files.catbox.moe/c3gf4g.jpg");
+ background-size:cover;
+ background-position:center;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ color:white;
+}
+.box{
+ width:390px;
+ background:rgba(15,23,42,.95);
+ padding:20px;
+ border-radius:16px;
+ box-shadow:0 0 25px #00ffff55;
+}
+h2{text-align:center;color:#00ffff}
+.subtitle{text-align:center;font-size:13px;color:#94a3b8;margin-bottom:12px}
+input,select{
+ width:100%;
+ padding:11px;
+ margin:6px 0;
+ border-radius:10px;
+ border:none;
+}
+button{
+ width:100%;
+ padding:12px;
+ border:none;
+ border-radius:12px;
+ background:#00ffff;
+ font-weight:bold;
+ margin-top:10px;
+ cursor:pointer;
+}
+.hidden{display:none}
+.menu-btn{
+ background:#020617;
+ color:white;
+ border:1px solid #00ffff;
+}
+.price{text-align:center;font-size:14px;color:#94a3b8}
+</style>
+</head>
+
+<body>
+
+<!-- REGISTER -->
+<div class="box" id="registerBox">
+<h2>Register</h2>
+<input id="regUser" placeholder="Username">
+<input id="regEmail" placeholder="Email">
+<input id="regPass" type="password" placeholder="Password">
+<button onclick="register()">Daftar</button>
+<p class="subtitle">Sudah punya akun?
+<a onclick="showLogin()" style="color:#00ffff;cursor:pointer">Login</a>
+</p>
+</div>
+
+<!-- LOGIN -->
+<div class="box hidden" id="loginBox">
+<h2>Login</h2>
+<input id="logUser" placeholder="Username">
+<input id="logPass" type="password" placeholder="Password">
+<button onclick="login()">Login</button>
+</div>
+
+<!-- DASHBOARD -->
+<div class="box hidden" id="shopBox">
+<h2>🛒 List By Janzz Store</h2>
+<button onclick="goWA('Assalamualaikum+Bg+saya+mau+order+Suntik+Sosmed')">🚀 Suntik Sosmed</button>
+<button onclick="goWA('Assalamualaikum+Bg+saya+mau+order+Nokos')">🔐 Nokos</button>
+<button onclick="openGame()">🎮 Topup Game</button>
+<button onclick="logout()">Logout</button>
+</div>
+
+<!-- PILIH GAME -->
+<div class="box hidden" id="gameBox">
+<h2>🎮 Pilih Game</h2>
+<button class="menu-btn" onclick="openML()">🔥 Mobile Legends</button>
+<button class="menu-btn" onclick="openFF()">🔥 Free Fire</button>
+<button class="menu-btn" onclick="openSUS()">🚀 Super Sus</button>
+<button onclick="backShop()">⬅ Kembali</button>
+</div>
+
+<!-- MOBILE LEGENDS -->
+<div class="box hidden" id="mlBox">
+<h2>🔥 Mobile Legends</h2>
+
+<div id="mlStep1">
+<input id="mlid" placeholder="ID Mobile Legends">
+<input id="mlserver" placeholder="Server">
+<button onclick="mlNext()">Lanjut</button>
+</div>
+
+<div id="mlStep2" class="hidden">
+<select id="mlproduk" onchange="showMLPrice()">
+<option value="">Pilih Diamond</option>
+<option value="ML3" data-price="Rp 1.500">3 Diamond</option>
+<option value="ML5" data-price="Rp 2.000">5 Diamond</option>
+<option value="ML10" data-price="Rp 3.500">10 Diamond</option>
+<option value="ML14" data-price="Rp 4.500">14 Diamond</option>
+<option value="ML22" data-price="Rp 7.000">22 Diamond</option>
+<option value="ML33" data-price="Rp 10.190">33 Diamond</option>
+<option value="ML44" data-price="Rp 12.897">44 Diamond</option>
+<option value="ML59" data-price="Rp 16.900">59 Diamond</option>
+<option value="ML70" data-price="Rp 20.200">70 Diamond</option>
+<option value="ML85" data-price="Rp 24.000">85 Diamond</option>
+<option value="ML112" data-price="Rp 31.000">112 Diamond</option>
+<option value="ML140" data-price="Rp 39.000">140 Diamond</option>
+<option value="ML150" data-price="Rp 41.000">150 Diamond</option>
+<option value="ML172" data-price="Rp 47.000">172 Diamond</option>
+<option value="ML185" data-price="Rp 51.000">185 Diamond</option>
+<option value="ML200" data-price="Rp 54.980">200 Diamond</option>
+<option value="MLWDP" data-price="Rp 28.900">Weekly Diamond Pass</option>
+<option value="SL" data-price="Rp 40.000">Starlight</option>
+</select>
+<div id="mlharga" class="price"></div>
+<button onclick="mlOrder()">Pesan via WhatsApp</button>
+<button onclick="backGame()">⬅ Kembali</button>
+</div>
+</div>
+
+<!-- FREE FIRE -->
+<div class="box hidden" id="ffBox">
+<h2>🔥 Free Fire</h2>
+
+<div id="ffStep1">
+<input id="ffid" placeholder="ID Free Fire">
+<button onclick="ffNext()">Lanjut</button>
+</div>
+
+<div id="ffStep2" class="hidden">
+<select id="ffproduk" onchange="showFFPrice()">
+<option value="">Pilih Diamond</option>
+<option value="F10" data-price="Rp 2.800">10 Diamond</option>
+<option value="F20" data-price="Rp 4.250">20 Diamond</option>
+<option value="F30" data-price="Rp 5.600">30 Diamond</option>
+<option value="F50" data-price="Rp 7.400">50 Diamond</option>
+<option value="F70" data-price="Rp 9.900">70 Diamond</option>
+<option value="F100" data-price="Rp 14.700">100 Diamond</option>
+<option value="F140" data-price="Rp 19.100">140 Diamond</option>
+<option value="F190" data-price="Rp 27.000">190 Diamond</option>
+</select>
+<div id="ffharga" class="price"></div>
+<button onclick="ffOrder()">Pesan via WhatsApp</button>
+<button onclick="backGame()">⬅ Kembali</button>
+</div>
+</div>
+
+<!-- SUPER SUS -->
+<div class="box hidden" id="susBox">
+<h2>🚀 Super Sus</h2>
+
+<input id="susid" placeholder="ID Super Sus">
+
+<select id="susproduk" onchange="showSusPrice()">
+<option value="">Pilih Goldstar</option>
+<option value="SUS100" data-price="Rp 11.700">100 Goldstar</option>
+<option value="SUS310" data-price="Rp 32.450">310 Goldstar</option>
+<option value="SUS520" data-price="Rp 54.800">520 Goldstar</option>
+<option value="SUS1060" data-price="Rp 109.600">1.060 Goldstar</option>
+<option value="SUS2180" data-price="Rp 218.300">2.180 Goldstar</option>
+<option value="SUS5600" data-price="Rp 553.100">5.600 Goldstar</option>
+</select>
+
+<div id="susharga" class="price"></div>
+<button onclick="susOrder()">Pesan via WhatsApp</button>
+<button onclick="backGame()">⬅ Kembali</button>
+</div>
+
+<script>
+function register(){localStorage.user=regUser.value;localStorage.pass=regPass.value;alert("Register berhasil");showLogin()}
+function showLogin(){registerBox.classList.add("hidden");loginBox.classList.remove("hidden")}
+function login(){if(logUser.value==localStorage.user&&logPass.value==localStorage.pass){loginBox.classList.add("hidden");shopBox.classList.remove("hidden")}else alert("Login salah")}
+function logout(){shopBox.classList.add("hidden");loginBox.classList.remove("hidden")}
+function openGame(){shopBox.classList.add("hidden");gameBox.classList.remove("hidden")}
+function backShop(){gameBox.classList.add("hidden");shopBox.classList.remove("hidden")}
+
+function openML(){gameBox.classList.add("hidden");mlBox.classList.remove("hidden")}
+function openFF(){gameBox.classList.add("hidden");ffBox.classList.remove("hidden")}
+function openSUS(){gameBox.classList.add("hidden");susBox.classList.remove("hidden")}
+function backGame(){
+ mlBox.classList.add("hidden");
+ ffBox.classList.add("hidden");
+ susBox.classList.add("hidden");
+ gameBox.classList.remove("hidden");
+}
+
+function mlNext(){if(!mlid.value||!mlserver.value)return alert("Lengkapi ID & Server");mlStep1.classList.add("hidden");mlStep2.classList.remove("hidden")}
+function showMLPrice(){mlharga.innerText="Harga : "+mlproduk.options[mlproduk.selectedIndex].dataset.price}
+function mlOrder(){
+ let t=`Assalamualaikum kak, order Mobile Legends
+Kode : ${mlproduk.value}
+ID : ${mlid.value} (${mlserver.value})`;
+ location.href="https://wa.me/6285624251772?text="+encodeURIComponent(t)
+}
+
+function ffNext(){if(!ffid.value)return alert("ID wajib diisi");ffStep1.classList.add("hidden");ffStep2.classList.remove("hidden")}
+function showFFPrice(){ffharga.innerText="Harga : "+ffproduk.options[ffproduk.selectedIndex].dataset.price}
+function ffOrder(){
+ let t=`Assalamualaikum kak, order Free Fire
+Kode : ${ffproduk.value}
+ID : ${ffid.value}`;
+ location.href="https://wa.me/6285624251772?text="+encodeURIComponent(t)
+}
+
+function showSusPrice(){susharga.innerText="Harga : "+susproduk.options[susproduk.selectedIndex].dataset.price}
+function susOrder(){
+ if(!susid.value||!susproduk.value)return alert("Lengkapi data");
+ let t=`Assalamualaikum kak, order Super Sus
+Kode : ${susproduk.value}
+ID : ${susid.value}`;
+ location.href="https://wa.me/6285624251772?text="+encodeURIComponent(t)
+}
+
+function goWA(t){location.href="https://wa.me/6285624251772?text="+t}
+</script>
+
+</body>
+</html>
